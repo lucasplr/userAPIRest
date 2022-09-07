@@ -3,9 +3,21 @@ var User = require('../models/User')
 
 class UserController{
 
-    //async index(req,res){
-        
-    //}
+    async index(req,res){
+        var users = await User.findAll()
+        res.json(users)
+    }
+
+    async findUser(req,res){
+        var id = req.params.id
+
+        var user = await User.findById(id)
+        if(user == undefined){
+            res.json({err: 'Não encontrado'})
+        }else{
+            res.json({user: user.name})
+        }
+    }
 
     async create(req,res){
 
@@ -30,7 +42,6 @@ class UserController{
 
         res.status(200)
         res.send('Ok ' + name)
-        
     }
 }
 
