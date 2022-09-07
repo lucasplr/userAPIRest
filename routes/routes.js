@@ -12,4 +12,6 @@ router.get('/users', UserController.index)
 
 router.get('/users/:id', UserController.findUser)
 
+router.put('/user', UserController.edit)
+
 module.exports = router;
