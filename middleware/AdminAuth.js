@@ -10,16 +10,20 @@ module.exports = function(req,res,next){
         const bearer = authToken.split(' ')
         var token = bearer[1]
 
-        var decoded = jwt.verify(token, secret)
+        try{
+            var decoded = jwt.verify(token, secret)
 
-        console.log(decoded)
-        next()
-
-    }else{
-        res.status(403)
-        res.send('Você não está autenticado')
-        return
-    }
-
-
+            if(decoded.role == 1){
+                next()
+            }else{
+                res.status(403)
+                res.send('Você não está autenticado')
+                return
+            }
+        }catch(err){
+            res.status(403)
+            res.send('Você não está autenticado')
+            return
+        }
+}
 }
