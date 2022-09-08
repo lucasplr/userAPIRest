@@ -32,8 +32,11 @@ class User{
     async findByEmail(email){
 
         try{
-            var result = await knex.select(['id', 'email', 'role', 'name']).where({email: email}).table('users')
+
+            var result = await knex.select(["id","email","password","role","name"]).where({email:email}).table("users");
+
             if(result.length > 0){
+                console.log(result[0])
                 return result[0]
             }else{
                 return undefined
@@ -47,7 +50,6 @@ class User{
     async new(email, password, name){
 
         try{
-
             var salt = bcrypt.genSaltSync(10)
             var hash = bcrypt.hashSync(password, salt)
 
@@ -59,16 +61,16 @@ class User{
 
     async findEmail(email){
         try{
-            var result = await knex.select('*').from('users').where({email: email})
+            var result = await knex.select('id', 'email', 'password', 'role', 'name').where({email: email}).table('users')
             
             if(result.length > 0){
-                return true
+                return result[0]
             }else{
-                return false
+                return undefined
             }
         }catch(err){
             console.log(err)
-            return false
+            return undefined
         }
     }
 
