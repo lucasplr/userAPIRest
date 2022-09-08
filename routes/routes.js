@@ -17,3 +17,9 @@ router.put('/user', UserController.edit)
 router.delete('/user', UserController.delete)
 
 module.exports = router;
+
+//UUID - GUID
+
+//passwordTokens
+//token | id | used
+//
