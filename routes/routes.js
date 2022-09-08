@@ -2,13 +2,14 @@ var express = require("express")
 var router = express.Router();
 var HomeController = require("../controllers/HomeController");
 var UserController = require('../controllers/UsersController') 
+var AdminAuth = require('../middleware/AdminAuth')
 
 
 router.get('/', HomeController.index);
 
 router.post('/user', UserController.create)
 
-router.get('/users', UserController.index)
+router.get('/users', AdminAuth, UserController.index)
 
 router.get('/users/:id', UserController.findUser)
 
